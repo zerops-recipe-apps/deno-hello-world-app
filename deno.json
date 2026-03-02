@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-net --allow-env src/main.ts",
+    "migrate": "deno run --allow-net --allow-env src/migrate.ts"
+  },
+  "lock": true
+}

@@ -1,0 +1,6 @@
+# Compiled production binaries
+/app
+/migrate
+
+# Deno module cache redirected into project tree (dev build)
+/.deno_cache
