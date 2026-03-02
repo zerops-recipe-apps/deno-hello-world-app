@@ -4,7 +4,7 @@ zerops:
   # ensures compiled binaries link against the same runtime internals.
   - setup: prod
     build:
-      base: deno@2
+      base: deno@2.0.0
 
       # Compile app and migration to self-contained binaries.
       # --allow-net: HTTP server + PostgreSQL. --allow-env: reads
@@ -36,7 +36,7 @@ zerops:
           path: /
 
     run:
-      base: deno@2
+      base: deno@2.0.0
 
       # Run migration once per deploy (execOnce). In initCommands —
       # not buildCommands — so migration and code deploy atomically.
@@ -67,7 +67,7 @@ zerops:
   # prepares the workspace and gets out of the way.
   - setup: dev
     build:
-      base: deno@2
+      base: deno@2.0.0
 
       envVariables:
         # Redirect Deno module cache into the project tree so it
@@ -89,7 +89,7 @@ zerops:
         - .deno_cache
 
     run:
-      base: deno@2
+      base: deno@2.0.0
 
       initCommands:
         # Migration runs once per deploy — database schema is ready
