@@ -63,9 +63,11 @@ zerops:
       # not buildCommands — so migration and code deploy atomically.
       # execOnce ensures exactly one container runs the migration;
       # others wait, preventing race conditions in multi-container
-      # deployments.
+      # deployments. --retryUntilSuccessful handles the brief window
+      # on fresh project imports where the database is still starting
+      # up even after priority 10 ordering.
       initCommands:
-        - zsc execOnce ${appVersionId} -- ./migrate
+        - zsc execOnce ${appVersionId} --retryUntilSuccessful -- ./migrate
 
       ports:
         - port: 8000
@@ -116,8 +118,10 @@ zerops:
         # Migration runs once per deploy — database schema is ready
         # when the developer SSHs in. Offline because DENO_DIR is
         # deployed with the source (no network needed).
-        - zsc execOnce ${appVersionId} -- deno run --allow-net
-            --allow-env src/migrate.ts
+        # --retryUntilSuccessful handles fresh project imports where
+        # the database port may not be open yet.
+        - zsc execOnce ${appVersionId} --retryUntilSuccessful
+            -- deno run --allow-net --allow-env src/migrate.ts
 
       ports:
         - port: 8000
