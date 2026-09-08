@@ -6,7 +6,7 @@ Minimal Deno 2 HTTP server querying a PostgreSQL `greetings` table via `deno.lan
 
 - HTTP port: `8000`
 - Siblings: `db` (PostgreSQL) — env: `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASS`, `DB_NAME`
-- Runtime base: `deno@2.0.0`
+- Runtime base: `deno@latest` on **`ubuntu`**
 
 ## Zerops dev
 
@@ -19,5 +19,5 @@ Minimal Deno 2 HTTP server querying a PostgreSQL `greetings` table via `deno.lan
 
 ## Notes
 
-- `DENO_DIR=/var/www/.deno_cache` is baked into the dev runtime env — imports resolve offline from the shipped cache, no downloads from deno.land.
+- Deno requires Ubuntu on Zerops; prod compiles to self-contained binaries with `deno compile`.
 - Migration runs once per deploy via `zsc execOnce` in `initCommands`; schema is ready on SSH.

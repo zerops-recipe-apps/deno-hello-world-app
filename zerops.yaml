@@ -4,7 +4,8 @@ zerops:
   # ensures compiled binaries link against the same runtime internals.
   - setup: prod
     build:
-      base: deno@2.0.0
+      os: ubuntu
+      base: deno@latest
 
       # Compile app and migration to self-contained binaries.
       # --allow-net: HTTP server + PostgreSQL. --allow-env: reads
@@ -12,10 +13,8 @@ zerops:
       # deno installed on the host. --lock enforces the lock file
       # for reproducible builds across build containers.
       buildCommands:
-        - deno compile --allow-net --allow-env --lock deno.lock
-            --output app src/main.ts
-        - deno compile --allow-net --allow-env --lock deno.lock
-            --output migrate src/migrate.ts
+        - deno compile --allow-net --allow-env --lock deno.lock --output app src/main.ts
+        - deno compile --allow-net --allow-env --lock deno.lock --output migrate src/migrate.ts
 
       deployFiles:
         - ./app
@@ -36,7 +35,8 @@ zerops:
           path: /
 
     run:
-      base: deno@2.0.0
+      os: ubuntu
+      base: deno@latest
 
       # Run migration once per deploy (execOnce). In initCommands —
       # not buildCommands — so migration and code deploy atomically.
@@ -69,7 +69,8 @@ zerops:
   # prepares the workspace and gets out of the way.
   - setup: dev
     build:
-      base: deno@2.0.0
+      os: ubuntu
+      base: deno@latest
 
       envVariables:
         # Redirect Deno module cache into the project tree so it
@@ -91,7 +92,8 @@ zerops:
         - .deno_cache
 
     run:
-      base: deno@2.0.0
+      os: ubuntu
+      base: deno@latest
 
       initCommands:
         # Migration runs once per deploy — database schema is ready
