@@ -5,7 +5,7 @@ zerops:
   - setup: prod
     build:
       os: ubuntu
-      base: deno@latest
+      base: deno@2
 
       # Compile app and migration to self-contained binaries.
       # --allow-net: HTTP server + PostgreSQL. --allow-env: reads
@@ -36,7 +36,7 @@ zerops:
 
     run:
       os: ubuntu
-      base: deno@latest
+      base: deno@2
 
       # Run migration once per deploy (execOnce). In initCommands —
       # not buildCommands — so migration and code deploy atomically.
@@ -70,7 +70,7 @@ zerops:
   - setup: dev
     build:
       os: ubuntu
-      base: deno@latest
+      base: deno@2
 
       envVariables:
         # Redirect Deno module cache into the project tree so it
@@ -93,7 +93,7 @@ zerops:
 
     run:
       os: ubuntu
-      base: deno@latest
+      base: deno@2
 
       initCommands:
         # Migration runs once per deploy — database schema is ready
